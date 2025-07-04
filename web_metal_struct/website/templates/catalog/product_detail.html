@@ -1,0 +1,170 @@
+{% extends 'catalog/base.html' %}
+{% load catalog_extras %}
+
+{% block title %}{{ product.name }} (Категория: {{ category_name }}){% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <!-- Фотографии в слайдере (слева, занимает 7 колонок) -->
+    <div class="col-md-7">
+      <div class="slider-container position-relative mb-4">
+        <div class="slider-track" id="sliderTrack">
+          {% if images %}
+            {% for image in images %}
+              <div class="slider-item">
+                <div class="card border-0">
+                  <img src="{{ image.url }}" 
+                       class="card-img-top img-fluid rounded" 
+                       alt="{{ product.name }}"
+                       style="max-height: 500px; width: auto; object-fit: contain;">
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="text-center py-5 bg-light rounded">
+              <p class="text-muted">Нет изображений для этого товара</p>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Кнопки навигации -->
+        {% if images|length > 1 %}
+          <button class="carousel-btn prev-btn btn btn-light btn-circle">&#9664;</button>
+          <button class="carousel-btn next-btn btn btn-light btn-circle">&#9654;</button>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Информация о товаре (справа, занимает 5 колонок) -->
+    <div class="col-md-5">
+      <div class="product-info p-3">
+        <h1 class="mb-3">{{ product.name }}</h1>
+        
+        <div class="mb-4">
+          <span class="badge bg-secondary">{{ category_name }}</span>
+        </div>
+
+        {% if product.price %}
+          <h3 class="text-primary mb-4">{{ product.price|format_price }}</h3>
+        {% endif %}
+
+        <div class="mb-4">
+          {% if product.description %}
+            <h4>Описание</h4>
+            <p class="text-muted">{{ product.description }}</p>
+          {% endif %}
+        </div>
+
+        <div class="specs mb-4">
+          {% if product.size %}
+            <div class="d-flex mb-2">
+              <span class="text-muted me-2" style="width: 100px;">Размер:</span>
+              <span>{{ product.size }}</span>
+            </div>
+          {% endif %}
+          
+          <!-- Дополнительные характеристики можно добавить здесь -->
+        </div>
+
+        <div class="d-grid gap-2 d-md-block">
+          <a href="{% url 'catalog:product_list' category_id=category_id %}" 
+             class="btn btn-outline-secondary">
+            &larr; Назад к категории
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .slider-container {
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+    background: #f8f9fa;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .slider-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+  }
+  
+  .slider-item {
+    min-width: 100%;
+    padding: 0 15px;
+  }
+  
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+  }
+  
+  .prev-btn {
+    left: 10px;
+  }
+  
+  .next-btn {
+    right: 10px;
+  }
+  
+  .btn-circle {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const track = document.getElementById('sliderTrack');
+    const items = document.querySelectorAll('.slider-item');
+    let currentIndex = 0;
+
+    function updateSlider() {
+      const itemWidth = track.clientWidth;
+      track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    }
+
+    document.querySelector('.next-btn')?.addEventListener('click', function () {
+      if (currentIndex < items.length - 1) {
+        currentIndex++;
+      } else {
+        currentIndex = 0;
+      }
+      updateSlider();
+    });
+
+    document.querySelector('.prev-btn')?.addEventListener('click', function () {
+      if (currentIndex > 0) {
+        currentIndex--;
+      } else {
+        currentIndex = items.length - 1;
+      }
+      updateSlider();
+    });
+
+    window.addEventListener('resize', updateSlider);
+    updateSlider();
+  });
+</script>
+{% endblock %}
