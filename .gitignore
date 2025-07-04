@@ -1,0 +1,10 @@
+# Python
+**/*.pyc
+**/__pycache__/
+**/*.pyo
+**/*.pyd
+src/read_db.py
+
+# IDE
+.vscode/
+.idea/
