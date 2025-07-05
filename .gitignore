@@ -8,3 +8,9 @@ src/read_db.py
 # IDE
 .vscode/
 .idea/
+
+#Database
+**/db.sqlite3
+
+#Media
+**/media/*

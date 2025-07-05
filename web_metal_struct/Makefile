@@ -1,8 +1,21 @@
 SOURCE_PATH = website/manage.py
 
-all: run_launch
+all: run
 
+run:
+	docker rm -f container
+	docker build -t website .
+	docker run -p 8000:8000 --rm --name container -v $(PWD)website/media:/app/websitey/media website
 run_launch:
 	python3 $(SOURCE_PATH) makemigrations
 	python3 $(SOURCE_PATH) migrate
 	python3 $(SOURCE_PATH) runserver 0.0.0.0:8000
+
+run_test:
+	cd website
+
+install_dep:
+	pip3 install -r requirements.txt
+
+stop_docker:
+	docker stop container
