@@ -1,6 +1,6 @@
 {% extends 'catalog/base.html' %}
 {% load catalog_extras %}
-<!--Загружаем пользовательские теги/фильтры-->
+{% load static %}
 
 {% block title %}Категории товаров{% endblock %}
 
@@ -14,11 +14,11 @@
                 {% for product in category.products %}
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        {% if product.images %}
+                        {% if product.images and product.images.0.url %}
                             <img src="{{ product.images.0.url }}" class="card-img-top" alt="{{ product.name }} - Фото">
                         {% else %}
                             <div class="card-img-top d-flex align-items-center justify-content-center bg-light text-muted" style="height: 200px;">
-                                Нет изображений для {{ product.name }}
+                                <img src="{% static 'images/no_image.jpg' %}" alt="Нет изображения" class="img-fluid" style="max-height: 150px;">
                             </div>
                         {% endif %}
                         <div class="card-body">

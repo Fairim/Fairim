@@ -1,12 +1,13 @@
 {% extends 'catalog/base.html' %}
 {% load catalog_extras %}
+{% load static %}
 
 {% block title %}{{ product.name }} (Категория: {{ category_name }}){% endblock %}
 
 {% block content %}
 <div class="container mt-4">
   <div class="row">
-    <!-- Фотографии в слайдере (слева, занимает 7 колонок) -->
+    <!-- Слайдер изображений -->
     <div class="col-md-7">
       <div class="slider-container position-relative mb-4">
         <div class="slider-track" id="sliderTrack">
@@ -22,13 +23,13 @@
               </div>
             {% endfor %}
           {% else %}
-            <div class="text-center py-5 bg-light rounded">
-              <p class="text-muted">Нет изображений для этого товара</p>
+            <div class="text-center py-5 bg-light rounded w-100">
+              <img src="{% static 'images/no_image.jpg' %}" alt="Нет изображения" class="img-fluid" style="max-height: 300px;">
+              <p class="text-muted mt-3">Нет изображений для этого товара</p>
             </div>
           {% endif %}
         </div>
 
-        <!-- Кнопки навигации -->
         {% if images|length > 1 %}
           <button class="carousel-btn prev-btn btn btn-light btn-circle">&#9664;</button>
           <button class="carousel-btn next-btn btn btn-light btn-circle">&#9654;</button>
@@ -36,11 +37,10 @@
       </div>
     </div>
 
-    <!-- Информация о товаре (справа, занимает 5 колонок) -->
+    <!-- Информация о товаре -->
     <div class="col-md-5">
       <div class="product-info p-3">
         <h1 class="mb-3">{{ product.name }}</h1>
-        
         <div class="mb-4">
           <span class="badge bg-secondary">{{ category_name }}</span>
         </div>
@@ -49,12 +49,12 @@
           <h3 class="text-primary mb-4">{{ product.price|format_price }}</h3>
         {% endif %}
 
-        <div class="mb-4">
-          {% if product.description %}
+        {% if product.description %}
+          <div class="mb-4">
             <h4>Описание</h4>
             <p class="text-muted">{{ product.description }}</p>
-          {% endif %}
-        </div>
+          </div>
+        {% endif %}
 
         <div class="specs mb-4">
           {% if product.size %}
@@ -63,13 +63,10 @@
               <span>{{ product.size }}</span>
             </div>
           {% endif %}
-          
-          <!-- Дополнительные характеристики можно добавить здесь -->
         </div>
 
         <div class="d-grid gap-2 d-md-block">
-          <a href="{% url 'catalog:product_list' category_id=category_id %}" 
-             class="btn btn-outline-secondary">
+          <a href="{% url 'catalog:product_list' category_id=category_id %}" class="btn btn-outline-secondary">
             &larr; Назад к категории
           </a>
         </div>
@@ -78,6 +75,7 @@
   </div>
 </div>
 
+<!-- Стили -->
 <style>
   .slider-container {
     overflow: hidden;
@@ -88,18 +86,18 @@
     display: flex;
     align-items: center;
   }
-  
+
   .slider-track {
     display: flex;
     transition: transform 0.5s ease;
     width: 100%;
   }
-  
+
   .slider-item {
     min-width: 100%;
     padding: 0 15px;
   }
-  
+
   .carousel-btn {
     position: absolute;
     top: 50%;
@@ -114,26 +112,24 @@
     justify-content: center;
     opacity: 0.8;
   }
-  
+
   .prev-btn {
     left: 10px;
   }
-  
+
   .next-btn {
     right: 10px;
   }
-  
+
   .btn-circle {
     width: 40px;
     height: 40px;
     padding: 0;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 </style>
 
+<!-- JS-слайдер -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const track = document.getElementById('sliderTrack');
@@ -146,20 +142,12 @@
     }
 
     document.querySelector('.next-btn')?.addEventListener('click', function () {
-      if (currentIndex < items.length - 1) {
-        currentIndex++;
-      } else {
-        currentIndex = 0;
-      }
+      currentIndex = (currentIndex + 1) % items.length;
       updateSlider();
     });
 
     document.querySelector('.prev-btn')?.addEventListener('click', function () {
-      if (currentIndex > 0) {
-        currentIndex--;
-      } else {
-        currentIndex = items.length - 1;
-      }
+      currentIndex = (currentIndex - 1 + items.length) % items.length;
       updateSlider();
     });
 
