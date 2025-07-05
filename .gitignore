@@ -8,6 +8,7 @@ src/read_db.py
 # IDE
 .vscode/
 .idea/
+**/.env
 
 #Database
 **/db.sqlite3
