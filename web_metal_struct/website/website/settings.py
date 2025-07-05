@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$6nu7c!1tdq!8mc$9j7@*a!=%69@461s6u)p@u!k7=4a$!3)f!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.forgeofstyle.ru', 'forgeofstyle.ru', '45.131.185.138', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['www.forgeofstyle.ru', 'forgeofstyle.ru', 'localhost']
 
 
 # Application definition
@@ -118,10 +118,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+# Правильные настройки для статических файлов
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
-
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Куда собирать файлы
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Где искать статику
+]
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_URL = '/media/'

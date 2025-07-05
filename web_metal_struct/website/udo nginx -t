@@ -1,0 +1,20 @@
+[0;1;32m●[0m gunicorn.service - Gunicorn service for Django project
+     Loaded: loaded (/etc/systemd/system/gunicorn.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Sat 2025-07-05 21:19:12 UTC; 15s ago
+   Main PID: 16127 (gunicorn)
+      Tasks: 4 (limit: 1114)
+     Memory: 85.8M
+        CPU: 1.146s
+     CGroup: /system.slice/gunicorn.service
+             ├─16127 /home/admin_root/repositories/web_metal_struct/website/venv/bin/python /home/admin_root/repositories/web_metal_struct/website/venv/bin/gunicorn --workers 3 --bind unix:/run/gunicorn/gunicorn-dev.sock website.wsgi:application
+             ├─16136 /home/admin_root/repositories/web_metal_struct/website/venv/bin/python /home/admin_root/repositories/web_metal_struct/website/venv/bin/gunicorn --workers 3 --bind unix:/run/gunicorn/gunicorn-dev.sock website.wsgi:application
+             ├─16137 /home/admin_root/repositories/web_metal_struct/website/venv/bin/python /home/admin_root/repositories/web_metal_struct/website/venv/bin/gunicorn --workers 3 --bind unix:/run/gunicorn/gunicorn-dev.sock website.wsgi:application
+             └─16138 /home/admin_root/repositories/web_metal_struct/website/venv/bin/python /home/admin_root/repositories/web_metal_struct/website/venv/bin/gunicorn --workers 3 --bind unix:/run/gunicorn/gunicorn-dev.sock website.wsgi:application
+
+Jul 05 21:19:12 r1001312 systemd[1]: Started Gunicorn service for Django project.
+Jul 05 21:19:12 r1001312 gunicorn[16127]: [2025-07-05 21:19:12 +0000] [16127] [INFO] Starting gunicorn 23.0.0
+Jul 05 21:19:12 r1001312 gunicorn[16127]: [2025-07-05 21:19:12 +0000] [16127] [INFO] Listening at: unix:/run/gunicorn/gunicorn-dev.sock (16127)
+Jul 05 21:19:12 r1001312 gunicorn[16127]: [2025-07-05 21:19:12 +0000] [16127] [INFO] Using worker: sync
+Jul 05 21:19:12 r1001312 gunicorn[16136]: [2025-07-05 21:19:12 +0000] [16136] [INFO] Booting worker with pid: 16136
+Jul 05 21:19:12 r1001312 gunicorn[16137]: [2025-07-05 21:19:12 +0000] [16137] [INFO] Booting worker with pid: 16137
+Jul 05 21:19:12 r1001312 gunicorn[16138]: [2025-07-05 21:19:12 +0000] [16138] [INFO] Booting worker with pid: 16138
