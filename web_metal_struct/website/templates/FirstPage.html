@@ -15,7 +15,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
 
   <!-- Подключаем свой CSS -->
-  <link rel="stylesheet" href="static/css/style.css" />
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
   <!-- Подключаем JS -->
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js" defer></script>
