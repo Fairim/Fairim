@@ -11,7 +11,7 @@ src/read_db.py
 **/.env
 
 #Database
-**/db.sqlite3
+~/repositories/web_metal_struct/website/db.sqlite3
 
 #Media
 **/media/*
