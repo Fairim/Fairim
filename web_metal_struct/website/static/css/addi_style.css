@@ -1,0 +1,19 @@
+/* === Секция контактов === */
+.contacts {
+  background: url('background_steel.png') center center;
+}
+
+.contacts p {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 16px;
+}
+
+/* === Подвал (footer) === */
+/* .footer {
+  background: url('background_steel.png') center center;;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 20px 0;
+} */
